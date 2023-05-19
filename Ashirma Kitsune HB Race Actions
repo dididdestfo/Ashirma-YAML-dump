@@ -144,3 +144,20 @@ proper: true
 verb: transforms into their
 phrase: Once a fox, always just as sly...
 activation_type: 1
+
+#End YAML Dump.
+#After importing these actions, add the required custom counter by running this command through Avrae:
+
+customcounter create "Kitsune Magic"
+-title "Kitsune Magic"
+-desc "You know the dancing lights cantrip.
+
+Starting at 3rd level, you can cast the charm person spell with this trait. Starting at 5th level, you can also cast the invisibility spell with it, targeting only yourself. Once you cast charm person or invisibility with this trait, you can’t cast that spell with it again until you finish a long rest. You can also cast either of those spells normally using any spell slots you have of the appropriate level.
+
+Intelligence, Wisdom, or Charisma is your spellcasting ability for these spells when you cast them with this trait (choose when you select this race). None of these spells require spell components when you cast them with this trait."
+-reset long
+-min 0
+-max 1
+-resetto 1
+-value 1
+-type bubble
