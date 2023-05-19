@@ -70,46 +70,77 @@
   verb: uses
   phrase: It always was difficult to keep track of those trickster spirits.
   activation_type: 1
-- name: True Form
-  automation:
-    - type: target
-      target: self
-      effects:
-        - type: ieffect2
-          name: True Form
-          duration: null
-          effects: null
-          attacks: []
-          buttons:
-            - label: False Form
+name: True Form
+automation:
+  - type: target
+    target: self
+    effects:
+      - type: ieffect2
+        name: True Form
+        duration: null
+        effects:
+          ac_value: "13"
+          check_adv:
+            - perception
+        attacks:
+          - attack:
+              name: Bite
               automation:
-                - type: remove_ieffect
-              verb: null
-              style: "1"
-              defaultDC: null
-              defaultAttackBonus: null
-              defaultCastingMod: null
-          end: false
-          conc: false
-          desc: >-
-            You can transform between your true fox form and human form at will as an
-            action. This ability functions as Wild Shape with the following
-            exceptions:
+                - type: target
+                  target: all
+                  effects:
+                    - type: attack
+                      hit:
+                        - type: damage
+                          damage: "1"
+                          overheal: false
+                      miss: []
+                      attackBonus: "+5"
+              _v: 2
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+        buttons:
+          - label: False Form
+            automation:
+              - type: remove_ieffect
+              - type: text
+                text: You can transform between your true fox form and human form at will as an
+                  action.
+                title: True Form
+            verb: null
+            style: "1"
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+        end: false
+        conc: false
+        desc: >-
+          You may speak as normal and use Kitsune Magic while in your fox form.
+
+          When you transform, you retain your existing hit points and damage instead of assuming the beast’s hit points.
+
+          If you are reduced to 0 hitpoints while in your fox form you remain in that form.
+
+          Your speed is a base of 40ft while in True Form, and your size is considered Tiny.
+        stacking: false
+        save_as: null
+        parent: null
+  - type: text
+    text: >-
+      You can transform between your true fox form and human form at will as an
+      action. This ability functions as Wild Shape with the following
+      exceptions:
 
 
-            You may speak as normal and use Kitsune Magic while in your fox form.
-
-            When you transform, you retain your existing hit points and damage instead of assuming the beast’s hit points.
-
-            If you are reduced to 0 hitpoints while in your fox form you remain in that form.
-
-
-            Your speed is a base of 40ft  while in True Form, and your size is considered Tiny.
-          stacking: false
-          save_as: null
-          parent: null
-  _v: 2
-  proper: true
-  verb: transforms into their
-  phrase: Once a fox, always just as sly...
-  activation_type: 1
+      You may speak as normal and use Kitsune Magic while in your fox form.
+      
+      When you transform, you retain your existing hit points and damage instead of assuming the beast’s hit points.
+      
+      If you are reduced to 0 hitpoints while in your fox form you remain in that form.
+    title: True Form
+_v: 2
+proper: true
+verb: transforms into their
+phrase: Once a fox, always just as sly...
+activation_type: 1
