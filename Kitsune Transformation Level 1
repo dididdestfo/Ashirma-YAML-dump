@@ -1,0 +1,118 @@
+_v: 2
+name: Kitsune Transformation
+automation:
+  - type: text
+    text: >-
+      **Greater Fox Form**
+
+      Your Wisdom score increases by 2 and your Charisma score increases by 1. An ability score cannot be increased beyond 16 this way. You become a Shapechanger in addition to any other creature types you are. Spells and abilities that affect Shapechangers of a specific CR have no effect on you.
+
+
+      **Elemental Tails**
+
+      You grow two Elemental Tails. As a kitsune, spiritual energy flows within you that enhances your magic for healing and for inflicting harm. You have a pool of d6's equal to the number of Tails you currently have. Whenever you cast a spell that deals damage or grants healing, you may expend any number of d6's to add the spell's damage or healing. You regain all expended d6's upon a short rest.
+
+      If you are Kitsune HB Race, then you count as having 3 Elemental Tails at this Transformation Level as opposed to 2. You may also cast and concentrate on spells in True form.
+    title: "Current Boons:"
+  - type: text
+    text: >-
+      **Tailed Beast**
+
+      Your tails are tied to your spiritual nature and therefore highly vulnerable to attack. Whenever an attacker rolls a 20 on an melee attack roll to hit you, the attack lops off a tail. If all of your tails are ever lopped off, you instantly die. All Tails grow back upon a Short Rest.
+    title: "Current Flaws:"
+verb: has begun their
+proper: true
+phrase: Who needs a feat lookup?
+activation_type: 2
+_v: 2
+name: Elemental Healing
+automation:
+  - type: counter
+    counter: Elemental Tails
+    amount: "1"
+    allowOverflow: false
+    errorBehaviour: raise
+  - type: target
+    target: all
+    effects:
+      - type: damage
+        damage: -1d6
+        overheal: false
+  - type: text
+    text: As a kitsune, spiritual energy flows within you that enhances your magic
+      for healing and for inflicting harm. You have a pool of d6's equal to the
+      number of Tails you currently have. Whenever you cast a spell that deals
+      damage or grants healing, you may expend any number of d6's to add the
+      spell's damage or healing.
+    title: Elemental Tails
+verb: uses
+proper: true
+phrase: Karma smiles upon you.
+activation_type: 2
+_v: 2
+name: Elemental Harm
+automation:
+  - type: counter
+    counter: Elemental Tails
+    amount: "1"
+    allowOverflow: false
+    errorBehaviour: raise
+  - type: target
+    target: all
+    effects:
+      - type: damage
+        damage: 1d6
+        overheal: false
+  - type: text
+    text: As a kitsune, spiritual energy flows within you that enhances your magic
+      for healing and for inflicting harm. You have a pool of d6's equal to the
+      number of Tails you currently have. Whenever you cast a spell that deals
+      damage or grants healing, you may expend any number of d6's to add the
+      spell's damage or healing.
+    title: Elemental Tails
+verb: uses
+proper: true
+phrase: Karma frowns upon you.
+activation_type: 2
+_v: 2
+name: Tail Loss
+automation:
+  - type: counter
+    counter: Tailed Beast
+    amount: "1"
+    allowOverflow: false
+    errorBehaviour: warn
+  - type: text
+    text: Your tails are tied to your spiritual nature and therefore highly
+      vulnerable to attack. Whenever an attacker rolls a 20 on an melee attack
+      roll to hit you, the attack lops off a tail. If all of your tails are ever
+      lopped off, you instantly die.
+    title: Tailed Beast
+verb: experiences
+proper: true
+activation_type: 2
+
+#End YAML dump. 
+#After importing these actions onto your sheet run these commands on Avrae with your character to create the custom counters needed for them.
+
+!customcounter create "Elemental Tails"
+-title "Elemental Tails"
+-desc "As a kitsune, spiritual energy flows within you that enhances your magic for healing and for inflicting harm. You have a pool of d6's equal to the number of Tails you currently have. Whenever you cast a spell that deals damage or grants healing, you may expend any number of d6's to add the spell's damage or healing. You regain all expended d6's upon a short rest."
+-reset short
+-min 0
+-max 2
+-resetto 2
+-value 2
+-type star
+#Set 2 to 3 if starting as a Kitsune HB race
+
+!customcounter create "Tailed Beast"
+-title "Elemental Tails"
+-desc "Your tails are tied to your spiritual nature and therefore highly vulnerable to attack. Whenever an attacker rolls a 20 on an melee attack roll to hit you, the attack lops off a tail. If all of your tails are ever lopped off, you instantly die. All Tails grow back upon a Short Rest."
+-reset short
+-min 0
+-max 2
+-resetto 2
+-value 2
+-type default
+#Set 2 to 3 if starting as a Kitsune HB race
