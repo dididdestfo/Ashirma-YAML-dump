@@ -18,7 +18,7 @@
       counter: Kitsune Magic
       amount: "1"
       allowOverflow: false
-      errorBehaviour: warn
+      errorBehaviour: raise
     - type: spell
       id: 2025
       level: null
@@ -47,7 +47,7 @@
       counter: Kitsune Magic
       amount: "1"
       allowOverflow: false
-      errorBehaviour: warn
+      errorBehaviour: raise
     - type: spell
       id: 2159
       level: null
