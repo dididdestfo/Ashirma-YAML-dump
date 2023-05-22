@@ -1,0 +1,247 @@
+name: Dread Knight Combat Training
+automation:
+  - type: counter
+    counter: Blood Fury
+    amount: "0"
+    allowOverflow: false
+    errorBehaviour: warn
+  - type: variable
+    name: bfc
+    value: lastCounterRemaining
+    onError: "1"
+  - type: variable
+    name: bfm
+    value: "1"
+    onError: "1"
+  - type: variable
+    name: bf
+    value: max(bfc, bfm)
+    onError: "1"
+  - type: target
+    target: self
+    effects:
+      - type: ieffect2
+        name: Dread Knight Training
+        duration: null
+        effects: null
+        attacks: []
+        buttons:
+          - label: Offense Stance
+            automation:
+              - type: counter
+                counter: Blood Fury
+                amount: "0"
+                allowOverflow: false
+                errorBehaviour: warn
+              - type: variable
+                name: bfc
+                value: lastCounterRemaining
+                onError: "1"
+              - type: variable
+                name: bfm
+                value: "1"
+                onError: "1"
+              - type: variable
+                name: bf
+                value: max(bfc, bfm)
+                onError: "1"
+              - type: target
+                target: self
+                effects:
+                  - type: ieffect2
+                    name: Offense
+                    duration: null
+                    effects:
+                      damage_bonus: "{bf}"
+                    attacks: []
+                    buttons:
+                      - label: Change Stance
+                        automation:
+                          - type: remove_ieffect
+                        verb: decides to Change Stance
+                        style: "4"
+                        defaultDC: null
+                        defaultAttackBonus: null
+                        defaultCastingMod: null
+                    end: false
+                    conc: false
+                    desc: Damage Bonus of {bf}.
+                    stacking: false
+                    save_as: null
+                    parent: dkt
+                  - type: text
+                    text: While in this stance, you deal an additional amount of  damage with your
+                      melee weapon equal to the number of Fury Points you
+                      currently possess (minimum of 1).
+                    title: Offense
+            verb: assumes their Offensive Stance
+            style: "4"
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+          - label: Defense Stance
+            automation:
+              - type: counter
+                counter: Blood Fury
+                amount: "0"
+                allowOverflow: false
+                errorBehaviour: warn
+              - type: variable
+                name: bfc
+                value: lastCounterRemaining
+                onError: "1"
+              - type: variable
+                name: bfm
+                value: "1"
+                onError: "1"
+              - type: variable
+                name: bf
+                value: max(bfc, bfm)
+              - type: variable
+                name: bfa
+                value: floor(bf/2)
+              - type: target
+                target: self
+                effects:
+                  - type: ieffect2
+                    name: Defense
+                    duration: null
+                    effects:
+                      ac_bonus: max(bfm, bfa)
+                    attacks: []
+                    buttons:
+                      - label: Change Stance
+                        automation:
+                          - type: remove_ieffect
+                        verb: decides to Change Stance
+                        style: "4"
+                        defaultDC: null
+                        defaultAttackBonus: null
+                        defaultCastingMod: null
+                    end: false
+                    conc: false
+                    desc: Current bonus of {max(bfm, bfa)}
+                    stacking: false
+                    save_as: null
+                    parent: dkt
+                  - type: text
+                    text: While in this stance, you gain a bonus to your AC equal to half the number
+                      of Fury Points you currently possess (minimum of 1).
+                    title: Defense
+            verb: assumes their Defensive Stance
+            style: "1"
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+          - label: Precise Stance
+            automation:
+              - type: counter
+                counter: Blood Fury
+                amount: "0"
+                allowOverflow: false
+                errorBehaviour: warn
+              - type: variable
+                name: bfc
+                value: lastCounterRemaining
+                onError: "1"
+              - type: variable
+                name: bfm
+                value: "1"
+                onError: "1"
+              - type: variable
+                name: bf
+                value: max(bfc, bfm)
+                onError: "1"
+              - type: variable
+                name: bfa
+                value: floor(bf/2)
+              - type: variable
+                name: dex
+                value: dexterityMod - strengthMod
+              - type: variable
+                name: tru
+                value: "0"
+              - type: variable
+                name: acc
+                value: max(dex, tru)
+              - type: target
+                target: self
+                effects:
+                  - type: ieffect2
+                    name: Accuracy
+                    duration: null
+                    effects:
+                      to_hit_bonus: "{(max(bfm, bfa)) + acc}"
+                    attacks: []
+                    buttons:
+                      - label: Change Stance
+                        automation:
+                          - type: remove_ieffect
+                        verb: decides to Change Stance
+                        style: "4"
+                        defaultDC: null
+                        defaultAttackBonus: null
+                        defaultCastingMod: null
+                    end: false
+                    conc: false
+                    desc: Current bonus of {(max(bfm, bfa)) + acc}
+                    stacking: false
+                    save_as: null
+                    parent: dkt
+                  - type: text
+                    text: >-
+                      While in this stance, you gain a bonus to hit with your weapon attacks
+                      equal to half the number of Fury Points you currently
+                      possess (minimum of 1).
+
+
+                      Additionally, you may use Dexterity instead of Strength for the attack and damage rolls of any melee weapon with the slashing damage type.
+
+                      Conversion of str to dex applied automatically and added to bonus.
+
+
+                      (Currently this applies to all weapons, if a non-slashing weapon is used this WILL break the rules)
+
+                      (Class features like Battle Smith int to hit and Hexblade cha to hit and Shillelagh WILL make this break rules)
+                    title: Accuracy
+            verb: assumes their Precise Stance
+            style: "3"
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+          - label: Leave Stance
+            automation:
+              - type: remove_ieffect
+            verb: decides to leave their stances
+            style: "2"
+            defaultDC: null
+            defaultAttackBonus: null
+            defaultCastingMod: null
+        end: false
+        conc: false
+        desc: You become trained in the martial ways of the Dread Knights. As a bonus
+          action, you may enter, exit, or change combat stances.
+        stacking: false
+        save_as: dkt
+        parent: null
+  - type: text
+    text: >-
+      You become trained in the martial ways of the Dread Knights. As a bonus
+      action, you may enter, exit, or change combat stances. While in a combat
+      stance, you gain the features of that stance.
+
+
+      **Offensive.** While in this stance, you deal an additional amount of  damage with your melee weapon equal to the number of Fury Points you currently possess (minimum of 1).
+
+
+      **Defense.** While in this stance, you gain a bonus to your AC equal to half the number of Fury Points you currently possess (minimum of 1).
+
+
+      **Accuracy.** While in this stance, you gain a bonus to hit with your weapon attacks equal to half the number of Fury Points you currently possess (minimum of 1).
+
+      Additionally, you may use Dexterity instead of Strength for the attack and damage rolls of any melee weapon with the slashing damage type.
+    title: Dread Knight Combat Training
+_v: 2
+proper: true
+verb: uses their
+activation_type: 3
