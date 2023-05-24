@@ -10,7 +10,6 @@
   _v: 2
   proper: true
   verb: uses
-  phrase: A little bit of trickery is going around, isn't it?
   activation_type: 1
 - name: "Kitsune Magic: Charm Person"
   automation:
@@ -39,7 +38,6 @@
   _v: 2
   proper: true
   verb: uses
-  phrase: Is this your mind or your heart speaking?
   activation_type: 1
 - name: "Kitsune Magic: Invisibility"
   automation:
@@ -68,7 +66,6 @@
   _v: 2
   proper: true
   verb: uses
-  phrase: It always was difficult to keep track of those trickster spirits.
   activation_type: 1
 name: True Form
 automation:
@@ -142,7 +139,6 @@ automation:
 _v: 2
 proper: true
 verb: transforms into their
-phrase: Once a fox, always just as sly...
 activation_type: 1
 
 #End YAML Dump.
