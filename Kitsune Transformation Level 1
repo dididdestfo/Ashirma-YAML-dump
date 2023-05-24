@@ -57,7 +57,6 @@ automation:
 _v: 2
 proper: true
 verb: uses
-phrase: Karma smiles upon you.
 activation_type: 2
 
 
@@ -92,7 +91,6 @@ automation:
 _v: 2
 proper: true
 verb: uses
-phrase: Karma frowns upon you.
 activation_type: 2
 
 
