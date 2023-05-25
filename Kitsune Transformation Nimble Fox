@@ -1,0 +1,44 @@
+name: Nimble Fox
+automation:
+  - type: text
+    text: >
+      You gain the ability to evade capture, move swiftly, and dance across the
+      battlefield in a blur of motion. At the start of your turn, you may expend
+      1 use of your Elemental Tails to gain the following features until the
+      start of your next turn:
+
+
+      -Your movement speed increases by 10 feet, and you gain a climbing speed equal to your walking speed.
+
+      -Your AC increases by an amount equal to your Transformation Level.
+
+      -You gain advantage on Acrobatics checks and Dexterity Saving throws 
+
+      -Your equipment merges into your Nimble Fox Form or immediately drops to the ground.
+    title: Nimble Fox
+  - type: counter
+    counter: Elemental Tails
+    amount: "1"
+  - type: target
+    target: self
+    effects:
+      - type: ieffect2
+        name: Nimble Fox
+        duration: "1"
+        effects:
+          ac_bonus: transformation_Level
+          save_adv:
+            - dex
+          check_adv:
+            - acrobatics
+        desc: >-
+          Your movement speed increases by 10 feet, and you gain a climbing speed
+          equal to your walking speed.
+
+          Your AC increases by {transformation_Level}, your Transformation Level.
+
+          You gain advantage on Acrobatics checks and Dexterity Saving throws
+_v: 2
+proper: true
+verb: becomes a
+activation_type: 8
