@@ -1,72 +1,88 @@
-- name: "Kitsune Magic: Dancing Lights"
-  automation:
-    - type: spell
-      id: 2057
-      level: null
-      dc: null
-      attackBonus: null
-      castingMod: null
-      parent: null
-  _v: 2
-  proper: true
-  verb: uses
-  activation_type: 1
-- name: "Kitsune Magic: Charm Person"
-  automation:
-    - type: counter
-      counter: Kitsune Magic
-      amount: "1"
-      allowOverflow: false
-      errorBehaviour: raise
-    - type: spell
-      id: 2025
-      level: null
-      dc: null
-      attackBonus: null
-      castingMod: null
-      parent: null
-    - type: text
-      text: >-
-        Once you cast charm person or invisibility with this trait, you can’t cast
-        that spell with it again until you finish a long rest. You can also cast
-        either of those spells normally using any spell slots you have of the
-        appropriate level.
+_v: 2
+name: "Kitsune Magic: Dancing Lights"
+automation:
+  - type: spell
+    id: 2057
+verb: uses
+proper: true
+activation_type: 1
 
 
-        Intelligence, Wisdom, or Charisma is your spellcasting ability for these spells when you cast them with this trait (choose when you select this race). None of these spells require spell components when you cast them with this trait.
-      title: Kitsune Magic
-  _v: 2
-  proper: true
-  verb: uses
-  activation_type: 1
-- name: "Kitsune Magic: Invisibility"
-  automation:
-    - type: counter
-      counter: Kitsune Magic
-      amount: "1"
-      allowOverflow: false
-      errorBehaviour: raise
-    - type: spell
-      id: 2159
-      level: null
-      dc: null
-      attackBonus: null
-      castingMod: null
-      parent: null
-    - type: text
-      text: >-
-        Once you cast charm person or invisibility with this trait, you can’t cast
-        that spell with it again until you finish a long rest. You can also cast
-        either of those spells normally using any spell slots you have of the
-        appropriate level.
+_v: 2
+name: "Kitsune Magic: Charm Person"
+automation:
+  - type: counter
+    counter: Kitsune Magic
+    amount: "1"
+    allowOverflow: false
+    errorBehaviour: ignore
+  - type: condition
+    condition: lastCounterUsedAmount == 1
+    onTrue: []
+    onFalse:
+      - type: counter
+        counter:
+          slot: 1
+        amount: "1"
+        allowOverflow: false
+        errorBehaviour: raise
+    errorBehaviour: "false"
+  - type: spell
+    id: 2025
+    castingMod: max(intelligenceMod, wisdomMod, charismaMod)
+  - type: text
+    text: >-
+      Once you cast charm person or invisibility with this trait, you can’t cast
+      that spell with it again until you finish a long rest. You can also cast
+      either of those spells normally using any spell slots you have of the
+      appropriate level.
 
 
-        Intelligence, Wisdom, or Charisma is your spellcasting ability for these spells when you cast them with this trait (choose when you select this race). None of these spells require spell components when you cast them with this trait.
-      title: Kitsune Magic
-  _v: 2
-  proper: true
-  verb: uses
-  activation_type: 1
+      Intelligence, Wisdom, or Charisma is your spellcasting ability for these spells when you cast them with this trait (choose when you select this race). None of these spells require spell components when you cast them with this trait.
+    title: Kitsune Magic
+verb: uses
+proper: true
+activation_type: 1
+
+
+_v: 2
+name: "Kitsune Magic: Invisibility"
+automation:
+  - type: counter
+    counter: Kitsune Magic
+    amount: "1"
+    allowOverflow: false
+    errorBehaviour: ignore
+  - type: condition
+    condition: lastCounterUsedAmount == 1
+    onTrue: []
+    onFalse:
+      - type: counter
+        counter:
+          slot: 2
+        amount: "1"
+        allowOverflow: false
+        errorBehaviour: raise
+    errorBehaviour: "false"
+  - type: text
+    text: >-
+      Once you cast charm person or invisibility with this trait, you can’t cast
+      that spell with it again until you finish a long rest. You can also cast
+      either of those spells normally using any spell slots you have of the
+      appropriate level.
+
+
+      Intelligence, Wisdom, or Charisma is your spellcasting ability for these spells when you cast them with this trait (choose when you select this race). None of these spells require spell components when you cast them with this trait.
+    title: Kitsune Magic
+  - type: spell
+    id: 2159
+verb: uses
+proper: true
+phrase: It always was difficult to keep track of those trickster spirits.
+activation_type: 1
+
+
+_v: 2
 name: True Form
 automation:
   - type: target
@@ -74,13 +90,13 @@ automation:
     effects:
       - type: ieffect2
         name: True Form
-        duration: null
         effects:
           ac_value: "13"
           check_adv:
             - perception
         attacks:
           - attack:
+              _v: 2
               name: Bite
               automation:
                 - type: target
@@ -93,23 +109,15 @@ automation:
                           overheal: false
                       miss: []
                       attackBonus: "+5"
-              _v: 2
-            defaultDC: null
-            defaultAttackBonus: null
-            defaultCastingMod: null
         buttons:
-          - label: False Form
-            automation:
+          - automation:
               - type: remove_ieffect
               - type: text
                 text: You can transform between your true fox form and human form at will as an
                   action.
                 title: True Form
-            verb: null
+            label: False Form
             style: "1"
-            defaultDC: null
-            defaultAttackBonus: null
-            defaultCastingMod: null
         end: false
         conc: false
         desc: >-
@@ -121,8 +129,6 @@ automation:
 
           Your speed is a base of 40ft while in True Form, and your size is considered Tiny.
         stacking: false
-        save_as: null
-        parent: null
   - type: text
     text: >-
       You can transform between your true fox form and human form at will as an
@@ -131,14 +137,14 @@ automation:
 
 
       You may speak as normal and use Kitsune Magic while in your fox form.
-      
+
       When you transform, you retain your existing hit points and damage instead of assuming the beast’s hit points.
-      
+
       If you are reduced to 0 hitpoints while in your fox form you remain in that form.
     title: True Form
-_v: 2
+verb: assumes their
 proper: true
-verb: transforms into their
+phrase: Once a fox, always just as sly...
 activation_type: 1
 
 #End YAML Dump.
