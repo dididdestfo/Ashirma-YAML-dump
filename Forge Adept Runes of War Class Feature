@@ -1,0 +1,148 @@
+_v: 2
+name: Runes of War
+automation:
+  - type: counter
+    counter: Runes of War
+    amount: "1"
+    errorBehaviour: raise
+  - type: target
+    target: self
+    effects:
+      - type: ieffect2
+        name: Runes of War
+        duration: "10"
+        attacks:
+          - attack:
+              _v: 2
+              name: Spread Aura
+              automation:
+                - type: target
+                  target: each
+                  effects:
+                    - type: ieffect2
+                      name: Runic Empowerment
+                      duration: ieffect.remaining
+                      attacks:
+                        - attack:
+                            _v: 2
+                            name: Runic Damage
+                            automation:
+                              - type: target
+                                target: all
+                                effects:
+                                  - type: damage
+                                    damage: 1d4[{choice}]
+                                  - type: text
+                                    text: "When you activate this aura, choose one of the following damage types:
+                                      acid, cold, fire, lightning, or thunder.
+                                      Each creature of your choice in the aura
+                                      deals an extra 1d4 damage of the chosen
+                                      type when it hits with a weapon attack."
+                                    title: Runes of War
+                            verb: invokes their
+                            proper: true
+                            activation_type: 8
+                      buttons:
+                        - automation:
+                            - type: remove_ieffect
+                          label: Leave Aura
+                          verb: leaves the range of the Aura
+                          style: "4"
+                      desc: "When you activate this aura, choose one of the following damage types:
+                        acid, cold, fire, lightning, or thunder. Each creature
+                        of your choice in the aura deals an extra 1d4 damage of
+                        the chosen type when it hits with a weapon attack."
+                      parent: ieffect
+              verb: begins to
+              proper: true
+              activation_type: 8
+          - attack:
+              _v: 2
+              name: Runic Damage
+              automation:
+                - type: target
+                  target: all
+                  effects:
+                    - type: damage
+                      damage: 1d4[{choice}]
+                    - type: text
+                      text: "When you activate this aura, choose one of the following damage types:
+                        acid, cold, fire, lightning, or thunder. Each creature
+                        of your choice in the aura deals an extra 1d4 damage of
+                        the chosen type when it hits with a weapon attack."
+                      title: Runes of War
+              verb: invokes their
+              proper: true
+              activation_type: 8
+        conc: true
+        desc: As an action, you can activate an aura that extends from you in a 30-foot
+          radius. The aura moves with you, centered on you, and lasts for 1
+          minute or until your concentration ends (as if you were casting a
+          spell).
+        save_as: aura
+  - type: target
+    target: each
+    effects:
+      - type: ieffect2
+        name: Runic Empowerment
+        duration: "101"
+        attacks:
+          - attack:
+              _v: 2
+              name: Runic Damage
+              automation:
+                - type: target
+                  target: all
+                  effects:
+                    - type: damage
+                      damage: 1d4[{choice}]
+                    - type: text
+                      text: "When you activate this aura, choose one of the following damage types:
+                        acid, cold, fire, lightning, or thunder. Each creature
+                        of your choice in the aura deals an extra 1d4 damage of
+                        the chosen type when it hits with a weapon attack."
+                      title: Runes of War
+              verb: invokes their
+              proper: true
+              activation_type: 8
+        buttons:
+          - automation:
+              - type: remove_ieffect
+            label: Leave Aura
+            verb: leaves the range of the Aura
+            style: "4"
+        desc: "When you activate this aura, choose one of the following damage types:
+          acid, cold, fire, lightning, or thunder. Each creature of your choice
+          in the aura deals an extra 1d4 damage of the chosen type when it hits
+          with a weapon attack."
+        parent: aura
+  - type: text
+    text: >-
+      At 9th level, you gain the ability to enhance the weapons of your squad,
+      targeting the damage to the weakness of your enemies. As an action, you
+      can activate an aura that extends from you in a 30-foot radius. The aura
+      moves with you, centered on you, and lasts for 1 minute or until your
+      concentration ends (as if you were casting a spell).
+
+
+      When you activate this aura, choose one of the following damage types: acid, cold, fire, lightning, or thunder. Each creature of your choice in the aura deals an extra 1d4 damage of the chosen type when it hits with a weapon attack.
+    title: Runes of War
+verb: invokes their
+proper: true
+activation_type: 1
+
+#end YAML dump, start Custom Counter command
+
+!customcounter create "Runes of War"
+-title "Runes of War"
+-desc "At 9th level, you gain the ability to enhance the weapons of your squad, targeting the damage to the weakness of your enemies. As an action, you can activate an aura that extends from you in a 30-foot radius. The aura moves with you, centered on you, and lasts for 1 minute or until your concentration ends (as if you were casting a spell).
+
+When you activate this aura, choose one of the following damage types: acid, cold, fire, lightning, or thunder. Each creature of your choice in the aura deals an extra 1d4 damage of the chosen type when it hits with a weapon attack.
+
+You can use this feature a number of times equal to your Intelligence modifier (minimum of once), and you regain all expended uses after a long rest."
+-reset long
+-min 0
+-max {max(intelligenceMod,1)}
+-resetto {max(intelligenceMod,1)}
+-value {max(intelligenceMod,1)}
+-type hex
