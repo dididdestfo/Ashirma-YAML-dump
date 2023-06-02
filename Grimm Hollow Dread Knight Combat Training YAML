@@ -4,19 +4,7 @@ automation:
     counter: Blood Fury
     amount: "0"
     allowOverflow: false
-    errorBehaviour: warn
-  - type: variable
-    name: bfc
-    value: lastCounterRemaining
-    onError: "1"
-  - type: variable
-    name: bfm
-    value: "1"
-    onError: "1"
-  - type: variable
-    name: bf
-    value: max(bfc, bfm)
-    onError: "1"
+    errorBehaviour: raise
   - type: target
     target: self
     effects:
@@ -190,6 +178,7 @@ _v: 2
 proper: true
 verb: uses their
 activation_type: 3
+
 
 
 
