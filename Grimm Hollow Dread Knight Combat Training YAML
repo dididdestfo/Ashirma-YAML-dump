@@ -28,31 +28,13 @@ automation:
         buttons:
           - label: Offense Stance
             automation:
-              - type: counter
-                counter: Blood Fury
-                amount: "0"
-                allowOverflow: false
-                errorBehaviour: warn
-              - type: variable
-                name: bfc
-                value: lastCounterRemaining
-                onError: "1"
-              - type: variable
-                name: bfm
-                value: "1"
-                onError: "1"
-              - type: variable
-                name: bf
-                value: max(bfc, bfm)
-                onError: "1"
               - type: target
                 target: self
                 effects:
                   - type: ieffect2
-                    name: Offense
+                    name: Offense Training
                     duration: null
-                    effects:
-                      damage_bonus: "{bf}"
+                    effects: null
                     attacks: []
                     buttons:
                       - label: Change Stance
@@ -65,14 +47,17 @@ automation:
                         defaultCastingMod: null
                     end: false
                     conc: false
-                    desc: Damage Bonus of {bf}.
+                    desc: null
                     stacking: false
                     save_as: null
                     parent: dkt
                   - type: text
-                    text: While in this stance, you deal an additional amount of  damage with your
+                    text: >-
+                      While in this stance, you deal an additional amount of  damage with your
                       melee weapon equal to the number of Fury Points you
                       currently possess (minimum of 1).
+
+                      Apply by adding the snippet `dkc` to your attack.
                     title: Offense
             verb: assumes their Offensive Stance
             style: "4"
@@ -91,23 +76,16 @@ automation:
                 value: lastCounterRemaining
                 onError: "1"
               - type: variable
-                name: bfm
-                value: "1"
-                onError: "1"
-              - type: variable
                 name: bf
-                value: max(bfc, bfm)
-              - type: variable
-                name: bfa
-                value: floor(bf/2)
+                value: max(floor(bfc/2), 1)
               - type: target
                 target: self
                 effects:
                   - type: ieffect2
-                    name: Defense
+                    name: Defense Training
                     duration: null
                     effects:
-                      ac_bonus: max(bfm, bfa)
+                      ac_bonus: bf
                     attacks: []
                     buttons:
                       - label: Change Stance
@@ -120,7 +98,7 @@ automation:
                         defaultCastingMod: null
                     end: false
                     conc: false
-                    desc: Current bonus of {max(bfm, bfa)}
+                    desc: Current bonus of {bf)}
                     stacking: false
                     save_as: null
                     parent: dkt
@@ -135,43 +113,13 @@ automation:
             defaultCastingMod: null
           - label: Precise Stance
             automation:
-              - type: counter
-                counter: Blood Fury
-                amount: "0"
-                allowOverflow: false
-                errorBehaviour: warn
-              - type: variable
-                name: bfc
-                value: lastCounterRemaining
-                onError: "1"
-              - type: variable
-                name: bfm
-                value: "1"
-                onError: "1"
-              - type: variable
-                name: bf
-                value: max(bfc, bfm)
-                onError: "1"
-              - type: variable
-                name: bfa
-                value: floor(bf/2)
-              - type: variable
-                name: dex
-                value: dexterityMod - strengthMod
-              - type: variable
-                name: tru
-                value: "0"
-              - type: variable
-                name: acc
-                value: max(dex, tru)
               - type: target
                 target: self
                 effects:
                   - type: ieffect2
-                    name: Accuracy
+                    name: Precision Training
                     duration: null
-                    effects:
-                      to_hit_bonus: "{(max(bfm, bfa)) + acc}"
+                    effects: null
                     attacks: []
                     buttons:
                       - label: Change Stance
@@ -184,7 +132,7 @@ automation:
                         defaultCastingMod: null
                     end: false
                     conc: false
-                    desc: Current bonus of {(max(bfm, bfa)) + acc}
+                    desc: null
                     stacking: false
                     save_as: null
                     parent: dkt
@@ -194,15 +142,12 @@ automation:
                       equal to half the number of Fury Points you currently
                       possess (minimum of 1).
 
+                      Apply by adding the `dkc` snippet to your attack.
+
 
                       Additionally, you may use Dexterity instead of Strength for the attack and damage rolls of any melee weapon with the slashing damage type.
 
-                      Conversion of str to dex applied automatically and added to bonus.
-
-
-                      (Currently this applies to all weapons, if a non-slashing weapon is used this WILL break the rules)
-
-                      (Class features like Battle Smith int to hit and Hexblade cha to hit and Shillelagh WILL make this break rules)
+                      To use this bonus add `dex` after the `dkc` snippet.
                     title: Accuracy
             verb: assumes their Precise Stance
             style: "3"
@@ -245,3 +190,33 @@ _v: 2
 proper: true
 verb: uses their
 activation_type: 3
+
+
+
+#End YAML dump. Attached snippet for the action:
+
+!snippet dkc <drac2>
+ch = character()
+cc = "Blood Fury"
+args = argparse(&ARGS&)
+
+if not ch.cc_exists(cc):
+  return f""" -f "You are not a Vampire!" """
+
+bf = ch.get_cc(cc)
+if c:=combat():
+  if c.me:
+    if effect:=c.me.get_effect("Offense Training"):
+      bonus = max(1,bf)
+      return f""" -d {bonus} -f "**Offensive Training**|While in this stance, you deal an additional amount of  damage with your melee weapon equal to the number of Fury Points you currently possess (minimum of 1, currently +{bonus})." """
+
+    elif effect:=c.me.get_effect("Precision Training") and args.get("dex"):
+      bonus = max(1,floor(bf/2))
+      dbonus = dexterityMod-strengthMod
+      return f""" -b {bonus} -b {dbonus} -d {dbonus} -f "**Accuracy Stance**|While in this stance, you gain a bonus to hit with your weapon attacks equal to half the number of Fury Points you currently possess (minimum of 1, currently +{bonus}).
+Additionally, you may use Dexterity instead of Strength for the attack and damage rolls of any melee weapon with the slashing damage type (currently +{dbonus})." """
+
+    elif effect:=c.me.get_effect("Precision Training"):
+      bonus = max(1,floor(bf/2))
+      return f""" -b {bonus} -f "**Accuracy Stance**|While in this stance, you gain a bonus to hit with your weapon attacks equal to half the number of Fury Points you currently possess (minimum of 1, currently +{bonus})." """
+</drac2>
