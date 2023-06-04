@@ -1,0 +1,175 @@
+#Slumbering Tome of Endless Stories
+```YAML
+name: Tome of Endless Stories
+automation:
+  - type: counter
+    counter: Tome of Endless Stories
+    amount: "1"
+    errorBehaviour: raise
+  - type: target
+    target: self
+    effects:
+      - type: ieffect2
+        name: Slumbering Heroic Aura
+        duration: "10"
+        desc: Affects allies within 10 feet of you.
+        save_as: tome
+        attacks:
+          - attack:
+              _v: 2
+              name: Spread Heroic Inspiration
+              automation:
+                - type: target
+                  target: each
+                  effects:
+                    - type: ieffect2
+                      name: Heroic Inspiration
+                      duration: ieffect.remaining
+                      desc: Lasts while within 10 feet of {{caster.name}}.
+                      parent: ieffect
+                      buttons:
+                        - label: Leave Heroic Aura
+                          automation:
+                            - type: remove_ieffect
+                          verb: leaves the range of the Heroic Aura
+                          style: "4"
+                      effects:
+                        ac_bonus: "1"
+                        save_bonus: "1"
+              verb: begins to
+              proper: true
+        effects:
+          ac_bonus: "1"
+          save_bonus: "1"
+  - type: target
+    target: each
+    effects:
+      - type: ieffect2
+        name: Heroic Inspiration
+        duration: "10"
+        desc: Lasts while within 10 feet of {{caster.name}}.
+        parent: tome
+        buttons:
+          - label: Leave Heroic Aura
+            automation:
+              - type: remove_ieffect
+            verb: leaves the range of the Heroic Aura
+            style: "4"
+        effects:
+          ac_bonus: "1"
+          save_bonus: "1"
+  - type: text
+    text: Whenever you expend a use of your bardic inspiration, you may summon a
+      spectral hero to protect you. For one minute, the hero from whatever story
+      you read from to inspire grants you and any allies in a 10 foot radius
+      centered on you a +1 to their AC and saving throws. Once used, you cannot
+      use this effect again until you have completed a long rest.
+    title: Tome of Endless Stories (Slumbering)
+_v: 2
+proper: true
+verb: opens their
+activation_type: 8
+phrase: Slumbering Tome of Endless Stories
+```
+#CC for Slumbering Tome
+```
+!customcounter create "Tome of Endless Stories"
+-title "Tome of Endless Stories (Slumbering)"
+-desc "Whenever you expend a use of your bardic inspiration, you may summon a spectral hero to protect you. For one minute, the hero from whatever story you read from to inspire grants you and any allies in a 10 foot radius centered on you a +1 to their AC and saving throws. Once used, you cannot use this effect again until you have completed a long rest."
+-reset long
+-min 0
+-max 1
+-resetto 1
+-value 1
+-type bubble
+```
+
+
+#Stirring Tome of Endless Stories
+
+```YAML
+name: Tome of Endless Stories
+automation:
+  - type: counter
+    counter: Tome of Endless Stories
+    amount: "1"
+    errorBehaviour: raise
+  - type: target
+    target: self
+    effects:
+      - type: ieffect2
+        name: Stirring Heroic Aura
+        duration: "10"
+        desc: Affects allies within 10 feet of you.
+        save_as: tome
+        attacks:
+          - attack:
+              _v: 2
+              name: Spread Heroic Inspiration
+              automation:
+                - type: target
+                  target: each
+                  effects:
+                    - type: ieffect2
+                      name: Heroic Inspiration
+                      duration: ieffect.remaining
+                      desc: Lasts while within 10 feet of {{caster.name}}.
+                      parent: ieffect
+                      buttons:
+                        - label: Leave Heroic Aura
+                          automation:
+                            - type: remove_ieffect
+                          verb: leaves the range of the Heroic Aura
+                          style: "4"
+                      effects:
+                        ac_bonus: "2"
+                        save_bonus: 1d4
+              verb: begins to
+              proper: true
+        effects:
+          ac_bonus: "2"
+          save_bonus: 1d4
+  - type: target
+    target: each
+    effects:
+      - type: ieffect2
+        name: Heroic Inspiration
+        duration: "10"
+        desc: Lasts while within 10 feet of {{caster.name}}.
+        parent: tome
+        buttons:
+          - label: Leave Heroic Aura
+            automation:
+              - type: remove_ieffect
+            verb: leaves the range of the Heroic Aura
+            style: "4"
+        effects:
+          ac_bonus: "2"
+          save_bonus: 1d4
+  - type: text
+    text: Whenever you expend a use of your bardic inspiration, you may summon a
+      spectral hero to protect you. For one minute, the hero from whatever story
+      you read from to inspire grants you and any allies in a 10 foot radius
+      centered on you a +2 to their AC and a +1d4 to their saving throws. Once
+      used, you cannot use this effect again until you have completed a long
+      rest.
+    title: Tome of Endless Stories (Stirring)
+_v: 2
+proper: true
+verb: opens their
+activation_type: 8
+phrase: Stirring Tome of Endless Stories
+```
+
+#CC for Stirring Tome
+```
+!customcounter create "Tome of Endless Stories"
+-title "Tome of Endless Stories (Stirring)"
+-desc "Whenever you expend a use of your bardic inspiration, you may summon a spectral hero to protect you. For one minute, the hero from whatever story you read from to inspire grants you and any allies in a 10 foot radius centered on you a +2 to their AC and a +1d4 to their saving throws. Once used, you cannot use this effect again until you have completed a long rest."
+-reset long
+-min 0
+-max 1
+-resetto 1
+-value 1
+-type bubble
+```
