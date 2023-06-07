@@ -11,7 +11,7 @@ Tome of Endless Stories (Slumbering):
       - name: Tome of Endless Stories
         automation:
           - type: counter
-            counter: Tome of Endless Stories
+            counter: Tome of Endless Stories (Slumbering)
             amount: "1"
             errorBehaviour: raise
           - type: target
@@ -91,7 +91,7 @@ Tome of Endless Stories (Stirring):
       - name: Tome of Endless Stories
         automation:
           - type: counter
-            counter: Tome of Endless Stories
+            counter: Tome of Endless Stories (Stirring)
             amount: "1"
             errorBehaviour: raise
           - type: target
@@ -173,7 +173,7 @@ Tome of Endless Stories (Wakened):
         name: Tome of Endless Stories
         automation:
           - type: counter
-            counter: Tome of Endless Stories
+            counter: Tome of Endless Stories (Wakened)
             amount: "1"
             errorBehaviour: raise
           - type: target
@@ -279,7 +279,7 @@ Tome of Endless Stories (Ascendant):
         name: Tome of Endless Stories
         automation:
           - type: counter
-            counter: Tome of Endless Stories
+            counter: Tome of Endless Stories (Ascendant)
             amount: "1"
             errorBehaviour: raise
           - type: condition
