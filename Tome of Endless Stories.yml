@@ -104,28 +104,28 @@ Tome of Endless Stories (Stirring):
                 save_as: tome
                 attacks:
                   - attack:
-                    _v: 2
-                    name: Spread Heroic Inspiration
-                    automation:
-                      - type: target
-                        target: each
-                        effects:
-                          - type: ieffect2
-                            name: Heroic Inspiration
-                            duration: ieffect.remaining
-                            desc: Lasts while within 10 feet of {{caster.name}}.
-                            parent: ieffect
-                            buttons:
-                              - label: Leave Heroic Aura
-                                automation:
-                                  - type: remove_ieffect
-                                verb: leaves the range of the Heroic Aura
-                                style: "4"
-                            effects:
-                              ac_bonus: "2"
-                              save_bonus: 1d4
-                      verb: begins to
-                      proper: true
+                      _v: 2
+                      name: Spread Heroic Inspiration
+                      automation:
+                        - type: target
+                          target: each
+                          effects:
+                            - type: ieffect2
+                              name: Heroic Inspiration
+                              duration: ieffect.remaining
+                              desc: Lasts while within 10 feet of {{caster.name}}.
+                              parent: ieffect
+                              buttons:
+                                - label: Leave Heroic Aura
+                                  automation:
+                                    - type: remove_ieffect
+                                  verb: leaves the range of the Heroic Aura
+                                  style: "4"
+                              effects:
+                                ac_bonus: "2"
+                                save_bonus: 1d4
+                        verb: begins to
+                        proper: true
                 effects:
                   ac_bonus: "2"
                   save_bonus: 1d4
@@ -300,29 +300,29 @@ Tome of Endless Stories (Ascendant):
                       - con
                   attacks:
                     - attack:
-                      _v: 2
-                      name: Spread Heroic Inspiration
-                      automation:
-                        - type: target
-                          target: each
-                          effects:
-                            - type: ieffect2
-                              name: Heroic Inspiration
-                              duration: ieffect.remaining
-                              effects:
-                                ac_bonus: "2"
-                                save_bonus: 1d4
-                              buttons:
-                                - automation:
-                                    - type: remove_ieffect
-                                  label: Leave Heroic Aura
-                                  verb: leaves the range of the Heroic Aura
-                                  style: "4"
-                              desc: Lasts while within 30 feet of {{caster.name}}. Gain a +2 to AC and a +1d4
-                                to their saving throws.
-                              parent: ieffect
-                      verb: begins to
-                      proper: true
+                        _v: 2
+                        name: Spread Heroic Inspiration
+                        automation:
+                          - type: target
+                            target: each
+                            effects:
+                              - type: ieffect2
+                                name: Heroic Inspiration
+                                duration: ieffect.remaining
+                                effects:
+                                  ac_bonus: "2"
+                                  save_bonus: 1d4
+                                buttons:
+                                  - automation:
+                                      - type: remove_ieffect
+                                    label: Leave Heroic Aura
+                                    verb: leaves the range of the Heroic Aura
+                                    style: "4"
+                                desc: Lasts while within 30 feet of {{caster.name}}. Gain a +2 to AC and a +1d4
+                                  to their saving throws.
+                                parent: ieffect
+                        verb: begins to
+                        proper: true
                     - attack:
                         _v: 2
                         name: Heroic Intervention
