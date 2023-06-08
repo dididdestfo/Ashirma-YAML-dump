@@ -124,8 +124,8 @@ Tome of Endless Stories (Stirring):
                               effects:
                                 ac_bonus: "2"
                                 save_bonus: 1d4
-                        verb: begins to
-                        proper: true
+                      verb: begins to
+                      proper: true
                 effects:
                   ac_bonus: "2"
                   save_bonus: 1d4
@@ -339,7 +339,7 @@ Tome of Endless Stories (Ascendant):
                                 text: Whenever you or one of your allies within the aura takes damage, you may
                                   use your reaction to reduce the damage they take by 1
                                   roll of your Bardic Inspiration die.
-                                title: Tome of Endless Stories (AScendant)
+                                title: Tome of Endless Stories (Ascendant)
                         verb: uses
                         proper: true
                         activation_type: 4
@@ -386,64 +386,64 @@ Tome of Endless Stories (Ascendant):
               - type: target
                 target: self
                 effects:
-                  - type: ieffect2
-                    name: Ascendant Heroic Aura
-                    duration: "10"
-                    effects:
-                      ac_bonus: "2"
-                      save_bonus: 1d4
-                      save_adv:
-                        - int
-                        - wis
-                        - cha
-                    attacks:
-                      - attack:
-                          _v: 2
-                          name: Spread Heroic Inspiration
-                          automation:
-                            - type: target
-                              target: each
-                              effects:
-                                - type: ieffect2
-                                  name: Heroic Inspiration
-                                  duration: ieffect.remaining
-                                  effects:
-                                    ac_bonus: "2"
-                                    save_bonus: 1d4
-                                  buttons:
-                                    - automation:
-                              - type: remove_ieffect
-                                      label: Leave Heroic Aura
-                                      verb: leaves the range of the Heroic Aura
-                                      style: "4"
-                                  desc: Lasts while within 30 feet of {{caster.name}}. Gain a +2 to AC and a +1d4
-                                    to their saving throws.
-                                  parent: ieffect
-                          verb: begins to
-                          proper: true
-                      - attack:
-                          _v: 2
-                          name: Heroic Intervention
-                          automation:
-                            - type: target
-                              target: all
-                              effects:
-                                - type: variable
-                                  name: d
-                                  value: 6+(2*(min(BardLevel,19)//5))
-                                - type: damage
-                                  damage: -1d{d}
-                                - type: text
-                                  text: Whenever you or one of your allies within the aura takes damage, you may
-                                    use your reaction to reduce the damage they take by 1
-                                    roll of your Bardic Inspiration die.
-                                  title: Tome of Endless Stories (AScendant)
-                          verb: uses
-                          proper: true
-                          activation_type: 4
-                    desc: Affects allies within 30 feet of you. Gain a +2 to AC and a +1d4 to their
-                      saving throws.
-                    save_as: tome
+                - type: ieffect2
+                  name: Ascendant Heroic Aura
+                  duration: "10"
+                  effects:
+                    ac_bonus: "2"
+                    save_bonus: 1d4
+                    save_adv:
+                      - int
+                      - wis
+                      - cha
+                  attacks:
+                    - attack:
+                        _v: 2
+                        name: Spread Heroic Inspiration
+                        automation:
+                          - type: target
+                            target: each
+                            effects:
+                              - type: ieffect2
+                                name: Heroic Inspiration
+                                duration: ieffect.remaining
+                                effects:
+                                  ac_bonus: "2"
+                                  save_bonus: 1d4
+                                buttons:
+                                  - automation:
+                                      - type: remove_ieffect
+                                    label: Leave Heroic Aura
+                                    verb: leaves the range of the Heroic Aura
+                                    style: "4"
+                                desc: Lasts while within 30 feet of {{caster.name}}. Gain a +2 to AC and a +1d4
+                                  to their saving throws.
+                                parent: ieffect
+                        verb: begins to
+                        proper: true
+                    - attack:
+                        _v: 2
+                        name: Heroic Intervention
+                        automation:
+                          - type: target
+                            target: all
+                            effects:
+                              - type: variable
+                                name: d
+                                value: 6+(2*(min(BardLevel,19)//5))
+                              - type: damage
+                                damage: -1d{d}
+                              - type: text
+                                text: Whenever you or one of your allies within the aura takes damage, you may
+                                  use your reaction to reduce the damage they take by 1
+                                  roll of your Bardic Inspiration die.
+                                title: Tome of Endless Stories (Ascendant)
+                        verb: uses
+                        proper: true
+                        activation_type: 4
+                  desc: Affects allies within 30 feet of you. Gain a +2 to AC and a +1d4 to their
+                    saving throws.
+                  save_as: tome
               - type: target
                 target: each
                 effects:
