@@ -1,0 +1,235 @@
+_v: 2
+name: Aura of Awakening
+automation:
+  - type: variable
+    name: con
+    value: constitutionMod
+  - type: condition
+    condition: choice and choice in "air"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Primordial Wind Aura
+            attacks:
+              - attack:
+                  _v: 2
+                  name: Spread Windy Aura
+                  automation:
+                    - type: target
+                      target: each
+                      effects:
+                        - type: ieffect2
+                          name: Light as Air
+                          duration: ieffect.remaining
+                          attacks: []
+                          buttons:
+                            - automation:
+                                - type: remove_ieffect
+                              label: Leave Windy Aura
+                              verb: leaves the range of the Aura
+                              style: "4"
+                          end: false
+                          conc: false
+                          desc: While within 10 feet of {{caster.name}}, add +{con} to all Dex Saves
+                          stacking: false
+                          parent: ieffect
+                  verb: begins to
+                  proper: true
+                  activation_type: 2
+            buttons: []
+            end: false
+            conc: false
+            desc: Whenever you or a friendly creature within 10 feet of you makes a
+              Dexterity saving throw, the creature gains a bonus equal to your
+              Constitution modifier (+{con}). You must be conscious to grant
+              this bonus.
+            stacking: false
+            save_as: awaken
+      - type: target
+        target: each
+        effects:
+          - type: ieffect2
+            name: Light as Air
+            attacks: []
+            buttons:
+              - automation:
+                  - type: remove_ieffect
+                label: Leave Wind Aura
+                verb: leaves the range of the Aura
+                style: "4"
+            end: false
+            conc: false
+            desc: While within 10 feet of {{caster.name}}, add +{con} to all Dex Saves
+            stacking: false
+            parent: awaken
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice and choice in "fire"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Primordial Fire Aura
+            attacks:
+              - attack:
+                  _v: 2
+                  name: Fire Forged Strikes
+                  automation:
+                    - type: target
+                      target: all
+                      effects:
+                        - type: damage
+                          damage: "{constitutionMod}[fire]"
+                          overheal: false
+                        - type: text
+                          text: >-
+                            While you are conscious,
+
+                            whenever you or a friendly creature within 10 feet of
+
+                            you deals damage with a melee weapon attack, they
+
+                            deal additional fire damage equal to your Constitution
+
+                            modifier. You must be conscious to grant this bonus.
+                          title: Forged in Fire
+                  verb: empowers their allies with
+                  proper: true
+            buttons: []
+            end: false
+            conc: false
+            desc: While you are conscious, whenever you or a friendly creature within 10
+              feet of you deals damage with a melee weapon attack, they deal
+              additional fire damage equal to your Constitution modifier
+              (+{con}). You must be conscious to grant this bonus.
+            stacking: false
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice and choice in "stone"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Primordial Earth Aura
+            attacks:
+              - attack:
+                  _v: 2
+                  name: Heart of Stone
+                  automation:
+                    - type: target
+                      target: all
+                      effects:
+                        - type: temphp
+                          amount: "{constitutionMod}"
+                        - type: text
+                          text: >-
+                            At the beginning of your turn, you
+
+                            and each creature of your choice within 10 feet of you
+
+                            gain temporary hit points equal to your Constitution
+
+                            modifier. While a creature has temporary hit points
+
+                            gained in this manner and are not incapacitated, they
+
+                            cannot be moved or knocked prone, unless they choose
+
+                            to be. You must be conscious to grant this bonus.
+                          title: Heart of Stone
+                  verb: bolsters their allies with
+            buttons: []
+            end: false
+            conc: false
+            desc: At the beginning of your turn, you and each creature of your choice within
+              10 feet of you gain temporary hit points equal to your
+              Constitution modifier (+{con}). While a creature has temporary hit
+              points gained in this manner and are not incapacitated, they
+              cannot be moved or knocked prone, unless they choose to be. You
+              must be conscious to grant this bonus.
+            stacking: false
+            save_as: awaken
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice and choice in "life"
+    onTrue:
+      - type: target
+        target: self
+        effects:
+          - type: ieffect2
+            name: Primordial Water Aura
+            attacks:
+              - attack:
+                  _v: 2
+                  name: Spring of Life
+                  automation:
+                    - type: target
+                      target: each
+                      effects:
+                        - type: damage
+                          damage: "-1"
+                          overheal: false
+                        - type: text
+                          text: Each unconscious creature of your choice within 10 feet of you regains 1
+                            hit point at the beginning of their turn. You must
+                            be conscious to grant this bonus.
+                          title: Spring of Life
+                  verb: touches their allies with
+                  activation_type: 8
+            buttons: []
+            end: false
+            conc: false
+            desc: Each unconscious creature of your choice within 10 feet of you regains 1
+              hit point at the beginning of their turn. You must be conscious to
+              grant this bonus.
+            stacking: false
+    onFalse: []
+    errorBehaviour: "false"
+  - type: condition
+    condition: choice
+    onTrue: []
+    onFalse:
+      - type: text
+        text: >-
+          You emit an aura of power that awakens the elemental
+
+          forces in your companions. When you first gain this
+
+          feature, choose one of the options below. You may
+
+          change the aura you emit upon completing a long rest.
+
+
+          **Light as Air**
+
+          +{constitutionMod} to Dex Saves
+
+
+          **Forged in Fire**
+
+          +{constitutionMod} [fire] damage on Weapon Attacks
+
+
+          **Heart of Stone** 
+
+          +{constitutionMod} Temporary HP, immunity to Forced Movement and Prone while has temp HP
+
+
+          **Spring of Life** 
+
+          Unconscious Creatures gain +1 HP on the Start of their turn
+        title: Aura of Awakening
+      - type: text
+        text: To Select your Aura, add `-choice <air, fire, stone, life>` to the action
+        title: Make your `-choice`!
+    errorBehaviour: "false"
+verb: has an
+proper: true
+activation_type: 2
