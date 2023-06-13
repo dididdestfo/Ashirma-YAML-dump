@@ -1,0 +1,186 @@
+- name: Fanged Bite
+  automation:
+    - type: counter
+      counter: Blood Fury
+      amount: "1"
+      errorBehaviour: raise
+    - type: target
+      target: all
+      effects:
+        - type: attack
+          hit:
+            - type: damage
+              damage: 1d4+{max(strengthMod,dexterityMod)}[piercing]
+            - type: save
+              stat: con
+              fail:
+                - type: roll
+                  dice: 2d6
+                  name: bite
+                  displayName: Fanged Bite
+                - type: damage
+                  damage: "{bite}[necrotic]"
+              success: []
+              dc: 8+proficiencyBonus+max(dexterityMod,charismaMod)
+          miss: []
+          attackBonus: max(strengthMod,dexterityMod)+proficiencyBonus
+    - type: condition
+      condition: lastSaveDidPass
+      onTrue: []
+      onFalse:
+        - type: target
+          target: self
+          effects:
+            - type: damage
+              damage: -{bite}[healing]
+      errorBehaviour: neither
+    - type: text
+      text: >-
+        On your turn, immediately after you take the attack action, you can use
+        your bonus action to make a special unarmed bite attack. You can use
+        your Dexterity modifier instead of strength to hit with this attack.
+        This attack deals piercing damage equal to 1d4 + your Strength or
+        Dexterity modifier. The target must then succeed at a Constitution
+        saving throw or take 2d6 necrotic damage. You regain hit point equal to
+        the necrotic damage dealt this way. This attack generates 1 Fury Point
+        as normal. If this attack reduces a humanoid creature of size Medium or
+        smaller to 0 hit points, you gain 3 Fury Points instead.
+
+
+        Add the Blood Fury counters with `!cc fury +<1, 3>` depending on which type of creature you hit.
+      title: Fanged Bite
+  _v: 2
+  proper: false
+  activation_type: 3
+- name: Calculated Strike
+  automation:
+    - type: counter
+      counter: Blood Fury
+      amount: "1"
+      errorBehaviour: raise
+    - type: target
+      target: all
+      effects:
+        - type: damage
+          damage: "{lastCounterUsedAmount}d6[calculated]"
+    - type: text
+      text: >-
+        When you hit with a melee weapon attack, you may use this ability before
+        damage is dealt. If you do so, you may add 1d6 of the same damage as
+        your weapon to the damage result. If this ability is used, no Fury
+        Points are generated for this attack.
+
+
+        When it matters, use `-dtype <weaponDamageType>` to change the damage type, using quotes for `"magical weaponDamageType"`
+      title: Calculated Strike
+  _v: 2
+  proper: true
+  verb: makes a
+  activation_type: 8
+- name: Vampiric Mist
+  automation:
+    - type: counter
+      counter: Blood Fury
+      amount: "2"
+      errorBehaviour: raise
+    - type: text
+      text: As a bonus action, you can disappear in a puff of shadowy mist and
+        teleport up to 30 feet to an unoccupied space you can see.
+      title: Vampiric Mist
+  _v: 2
+  proper: true
+  verb: disappears into
+  activation_type: 3
+- name: Unearthly Reflexes
+  automation:
+    - type: counter
+      counter: Blood Fury
+      amount: "1"
+      errorBehaviour: raise
+    - type: text
+      text: After you have rolled a Dexterity saving throw, but before the GM has
+        determined the result, you can use your reaction and take half damage on
+        a failed save, and no damage on a successful one.
+      title: Unearthly Reflexes
+  _v: 2
+  proper: true
+  verb: uses their
+  activation_type: 4
+- name: Deathly Horror
+  automation:
+    - type: counter
+      counter: Blood Fury
+      amount: "3"
+    - type: target
+      target: all
+      effects:
+        - type: save
+          stat: wis
+          fail:
+            - type: ieffect2
+              name: Deathly Afraid
+              buttons:
+                - label: Resist Deathly Afraid
+                  automation:
+                    - type: target
+                      target: self
+                      effects:
+                        - type: save
+                          stat: dex
+                          success:
+                            - type: remove_ieffect
+                              removeParent: if_no_children
+                            - type: ieffect2
+                              name: Immune to Deathly Horror
+                          fail: []
+                  verb: attempts to resist Deathly Afraid
+                  style: "1"
+                  defaultDC: lastSaveDC
+              effects:
+                attack_advantage: "-1"
+                check_dis:
+                  - all
+              duration: "10"
+              desc: A creature can repeat the saving throw at the end of each of its turns,
+                ending the effect on itself on a success. A creature that
+                succeeds on its saving throw is immune to this ability for 24
+                hours.
+          success: []
+          dc: 8+proficiencyBonus+max(dexterityMod,charismaMod)
+    - type: text
+      text: As a bonus action, you can emit a ghastly distortion of your true form. A
+        creature of your choice within 30 feet of you must succeed on a Wisdom
+        saving throw or become Frightened of you for 1 minute. A creature can
+        repeat the saving throw at the end of each of its turns, ending the
+        effect on itself on a success. A creature that succeeds on its saving
+        throw is immune to this ability for 24 hours.
+      title: Deathly Horror
+  _v: 2
+  proper: false
+  verb: reveals
+  activation_type: 3
+- name: Undead Form
+  automation:
+    - type: counter
+      counter: x
+      amount: "0"
+      errorBehaviour: ignore
+    - type: target
+      target: self
+      effects:
+        - type: damage
+          damage: "{lastCounterRequestedAmount}[heal conversion]"
+        - type: temphp
+          amount: "{lastCounterRequestedAmount}"
+    - type: text
+      text: >-
+        If a spell or ability other than your own would cause you to gain Hit
+        Points, you gain that many temporary Hit Points instead.
+
+
+        Use `-amt #` to adjust health and temp hp with this action.
+      title: Undead Form
+  _v: 2
+  proper: true
+  verb: has an
+  activation_type: 8
