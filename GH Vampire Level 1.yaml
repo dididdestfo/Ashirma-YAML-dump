@@ -176,12 +176,15 @@
     - type: counter
       counter: x
       amount: "0"
+      allowOverflow: false
       errorBehaviour: ignore
     - type: target
       target: self
       effects:
         - type: damage
           damage: "{lastCounterRequestedAmount}[heal conversion]"
+          overheal: false
+          fixedValue: true
         - type: temphp
           amount: "{lastCounterRequestedAmount}"
     - type: text
