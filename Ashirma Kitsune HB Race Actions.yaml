@@ -147,6 +147,80 @@ proper: true
 phrase: Once a fox, always just as sly...
 activation_type: 1
 
+
+#if player uses the ddb kitsune:
+_v: 2
+name: "Kitsune Magic: Charm Person"
+automation:
+  - type: counter
+    counter: "Kitsune Magic.: Charm Person"
+    amount: "1"
+    allowOverflow: false
+    errorBehaviour: ignore
+  - type: condition
+    condition: lastCounterUsedAmount == 1
+    onTrue: []
+    onFalse:
+      - type: counter
+        counter:
+          slot: 1
+        amount: "1"
+        allowOverflow: false
+        errorBehaviour: raise
+    errorBehaviour: "false"
+  - type: spell
+    id: 2025
+    castingMod: max(intelligenceMod, wisdomMod, charismaMod)
+  - type: text
+    text: >-
+      Once you cast charm person or invisibility with this trait, you can’t cast
+      that spell with it again until you finish a long rest. You can also cast
+      either of those spells normally using any spell slots you have of the
+      appropriate level.
+
+
+      Intelligence, Wisdom, or Charisma is your spellcasting ability for these spells when you cast them with this trait (choose when you select this race). None of these spells require spell components when you cast them with this trait.
+    title: Kitsune Magic
+verb: uses
+proper: true
+activation_type: 1
+
+_v: 2
+name: "Kitsune Magic: Invisibility"
+automation:
+  - type: counter
+    counter: "Kitsune Magic.: Invisibility"
+    amount: "1"
+    allowOverflow: false
+    errorBehaviour: ignore
+  - type: condition
+    condition: lastCounterUsedAmount == 1
+    onTrue: []
+    onFalse:
+      - type: counter
+        counter:
+          slot: 2
+        amount: "1"
+        allowOverflow: false
+        errorBehaviour: raise
+    errorBehaviour: "false"
+  - type: text
+    text: >-
+      Once you cast charm person or invisibility with this trait, you can’t cast
+      that spell with it again until you finish a long rest. You can also cast
+      either of those spells normally using any spell slots you have of the
+      appropriate level.
+
+
+      Intelligence, Wisdom, or Charisma is your spellcasting ability for these spells when you cast them with this trait (choose when you select this race). None of these spells require spell components when you cast them with this trait.
+    title: Kitsune Magic
+  - type: spell
+    id: 2159
+verb: uses
+proper: true
+phrase: It always was difficult to keep track of those trickster spirits.
+activation_type: 1
+
 #End YAML Dump.
 #After importing these actions, add the required custom counter by running this command through Avrae:
 
