@@ -25,6 +25,10 @@
                 - type: damage
                   damage: "{bite}[necrotic]"
                   overheal: false
+                - type: variable
+                  name: biteDmg
+                  value: lastDamage
+                  onError: "0"
               success: []
               dc: 8+proficiencyBonus+max(dexterityMod,charismaMod)
           miss: []
@@ -37,7 +41,7 @@
           target: self
           effects:
             - type: damage
-              damage: -{bite}[vampirism]
+              damage: -{biteDmg}[vampirism]
               overheal: false
               fixedValue: true
       errorBehaviour: neither
