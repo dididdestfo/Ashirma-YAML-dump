@@ -1,0 +1,447 @@
+- name: Hybrid Transformation
+  automation:
+    - type: variable
+      name: Dur
+      value: max(constitutionMod, 1) * 600
+    - type: target
+      target: self
+      effects:
+        - type: ieffect2
+          name: Hybrid Transformation
+          duration: Dur
+          effects:
+            ac_value: 10+constitutionMod+dexterityMod
+          attacks:
+            - attack:
+                name: Lycan Claw
+                automation:
+                  - type: target
+                    target: all
+                    effects:
+                      - type: attack
+                        hit:
+                          - type: damage
+                            damage: 1d6+{strengthMod} [slashing]
+                            overheal: false
+                        miss: []
+                        attackBonus: strengthMod+proficiencyBonus
+                  - type: text
+                    text: You roll a d6 in place of the normal damage for your unarmed strikes.
+                      Attacks using your claws deal slashing damage instead of
+                      bludgeoning damage.
+                    title: Effect
+                _v: 2
+              defaultDC: null
+              defaultAttackBonus: null
+              defaultCastingMod: null
+            - attack:
+                name: Lycan Bite
+                automation:
+                  - type: target
+                    target: all
+                    effects:
+                      - type: attack
+                        hit:
+                          - type: damage
+                            damage: 1d8+{strengthMod} [piercing]
+                            overheal: false
+                        miss: []
+                        attackBonus: strengthMod+proficiencyBonus
+                  - type: text
+                    text: When making the attack action you may substitute one attack to make an
+                      unarmed bite attack. If the attack hits, you deal piercing
+                      damage equal to 1d8 + your Strength modifier. If you make
+                      a bite attack, you cannot make another until the beginning
+                      of your next turn.
+                    title: Effect
+                _v: 2
+              defaultDC: null
+              defaultAttackBonus: null
+              defaultCastingMod: null
+          buttons:
+            - label: End Hybrid Transformation
+              automation:
+                - type: remove_ieffect
+              verb: ends their Hybrid Transformation
+              style: "4"
+              defaultDC: null
+              defaultAttackBonus: null
+              defaultCastingMod: null
+            - label: Lust for the Hunt
+              automation:
+                - type: target
+                  target: self
+                  effects:
+                    - type: save
+                      stat: wis
+                      fail:
+                        - type: text
+                          text: "• You must move toward the closest non-\rplayer creature you can see,
+                            smell or hear, \rprioritising helpless creatures. If
+                            you end \ryour movement and no non-player creature
+                            is \rwithin 5 feet of you, then you must use your
+                            \raction to dash toward one.\r
+
+                            • If there is a
+                            non-player creature within 5 feet \rof you and you
+                            have not used your action, \ryou must make a melee
+                            attack against it, \rprioritising helpless
+                            creatures.\r
+
+                            • If you made a melee
+                            attack against a creature, \rand that creature is
+                            still alive, then you must \ruse your bonus action
+                            to make an unarmed \rclaw or bite attack against the
+                            same creature."
+                          title: Effect
+                      success: []
+                      dc: "10"
+                    - type: text
+                      text: The savage nature of your curse sometimes causes you to lose control.
+                        These ferocious tendencies are a constant struggle
+                        between you as a humanoid and the beast within. When you
+                        are in your hybrid form, you must succeed at a DC 10
+                        Wisdom saving throw at the beginning of each turn or
+                        lose control. If you are in the light of a full moon,
+                        you automatically fail this saving throw.
+                      title: Lust for the Hunt
+              verb: attempts to suppress the Lust for the Hunt
+              style: "4"
+              defaultDC: null
+              defaultAttackBonus: null
+              defaultCastingMod: null
+          end: false
+          conc: false
+          desc: >-
+            You can’t cast spells or concentrate on spells. Your ability to speak is
+            reduced to short, basic, guttural responses.
+             - While transformed you can use weapons and equipment as normal, unless specified elsewhere.
+          stacking: false
+          save_as: hybrid
+          parent: null
+          target_self: false
+          tick_on_caster: false
+    - type: text
+      text: >-
+        As an action, you may transform into a monstrous hybrid: half-beast,
+        half-sentient.While in your hybrid form, the following rules apply:
+
+        • You can’t cast spells or concentrate on spells. Your ability to speak is reduced to short, basic, guttural responses.
+
+        • While transformed you can use weapons and equipment as normal, unless specified elsewhere.
+
+        • When making the attack action you may substitute one attack to make an unarmed bite attack. If you make a bite attack, you cannot make another until the beginning of your next turn.
+
+        • If you made the attack action, as a bonus action you may make an unarmed claw attack or bite attack, provided you have not already used your bonus action.
+
+        Your hybrid form lasts for a number of hours equal to your Constitution modifier (minimum of 1) and ends early if you are knocked unconscious or reduced to 0 hit points. You can end your Hybrid Form by using an action on your turn.
+      title: Hybrid Transformation
+  _v: 2
+  verb: takes on
+  activation_type: 1
+- name: Hunter's Howl
+  automation:
+    - type: counter
+      counter: Hunter's Howl
+      amount: "1"
+      allowOverflow: false
+      errorBehaviour: raise
+      fixedValue: true
+    - type: target
+      target: self
+      effects:
+        - type: ieffect2
+          name: Hunter's Howl
+          duration: "600"
+          effects: null
+          attacks:
+            - attack:
+                name: Hunter's Howl Damage
+                automation:
+                  - type: target
+                    target: all
+                    effects:
+                      - type: damage
+                        damage: 1d6 [prey]
+                        overheal: false
+                        fixedValue: true
+                _v: 2
+                proper: true
+                verb: applies their
+                activation_type: 2
+              defaultDC: null
+              defaultAttackBonus: null
+              defaultCastingMod: null
+          buttons: []
+          end: false
+          conc: false
+          desc: >-
+            Whenever you hit the marked creature with a melee attack, you deal an
+            additional 1d6 damage. This damage is the same type as the attack.
+             - You have advantage on any Wisdom (Perception) or Wisdom (Survival) check you make to track your prey.
+          stacking: false
+          save_as: hunt
+          parent: hybrid
+          target_self: true
+          tick_on_caster: false
+    - type: target
+      target: all
+      effects:
+        - type: ieffect2
+          name: Hunter's Prey
+          duration: null
+          effects: null
+          attacks: []
+          buttons: []
+          end: false
+          conc: false
+          desc: null
+          stacking: false
+          save_as: null
+          parent: hunt
+          target_self: false
+          tick_on_caster: false
+    - type: text
+      text: >-
+        While in your hybrid form, you can use a bonus action to let out a loud
+        howl and mark a creature within 60 feet as your prey. A creature remains
+        marked this way for 1 hour, or until it dies. While a creature is marked
+        as your prey, you gain the following benefits:
+
+        · Whenever you hit the marked creature with a melee attack, you deal an additional 1d6 damage. This damage is the same type as the attack.
+
+        · You have advantage on any Wisdom (Perception) or Wisdom (Survival) check you make to track your prey.
+      title: Hunter's Howl
+  _v: 2
+  verb: calls with
+  activation_type: 3
+- name: Kindred Form
+  automation:
+    - type: variable
+      name: Dur
+      value: max(constitutionMod, 1) * 600
+    - type: condition
+      condition: choice and choice in "bear"
+      onTrue:
+        - type: target
+          target: self
+          effects:
+            - type: ieffect2
+              name: Kindred Form (Bear)
+              duration: Dur
+              effects:
+                ac_value: 10+constitutionMod+dexterityMod
+                max_hp_bonus: "15"
+                save_bonus: "{constitutionMod}"
+              attacks:
+                - attack:
+                    name: Bear Claw
+                    automation:
+                      - type: target
+                        target: all
+                        effects:
+                          - type: attack
+                            hit:
+                              - type: damage
+                                damage: 1d6+{strengthMod} [slashing]
+                                overheal: false
+                            miss: []
+                            attackBonus: strengthMod+proficiencyBonus
+                      - type: text
+                        text: You roll a d6 in place of the normal damage for your unarmed strikes.
+                          Attacks using your claws deal slashing damage instead
+                          of bludgeoning damage.
+                        title: Effect
+                    _v: 2
+                  defaultDC: null
+                  defaultAttackBonus: null
+                  defaultCastingMod: null
+                - attack:
+                    name: Bear Bite
+                    automation:
+                      - type: target
+                        target: all
+                        effects:
+                          - type: attack
+                            hit:
+                              - type: damage
+                                damage: 1d8+{strengthMod} [piercing]
+                                overheal: false
+                            miss: []
+                            attackBonus: strengthMod+proficiencyBonus
+                      - type: text
+                        text: When making the attack action you may substitute one attack to make an
+                          unarmed bite attack. If the attack hits, you deal
+                          piercing damage equal to 1d8 + your Strength modifier.
+                          If you make a bite attack, you cannot make another
+                          until the beginning of your next turn.
+                        title: Effect
+                    _v: 2
+                  defaultDC: null
+                  defaultAttackBonus: null
+                  defaultCastingMod: null
+              buttons:
+                - label: End Kindred Form
+                  automation:
+                    - type: remove_ieffect
+                    - type: condition
+                      condition: caster.hp >= caster.max_hp
+                      onTrue:
+                        - type: target
+                          target: self
+                          effects:
+                            - type: damage
+                              damage: "{caster.hp-caster.max_hp} [health reduction]"
+                              overheal: false
+                              fixedValue: true
+                      onFalse: []
+                      errorBehaviour: "false"
+                  verb: ends their Kindred Form
+                  style: "4"
+                  defaultDC: null
+                  defaultAttackBonus: null
+                  defaultCastingMod: null
+              end: false
+              conc: false
+              desc: null
+              stacking: false
+              save_as: hybrid
+              parent: null
+              target_self: false
+              tick_on_caster: false
+            - type: text
+              text: >-
+                Your kindred form takes the shape of a large bear. While in your kindred
+                form, you gain the additional features:
+
+                • You can speak to and understand other bears.
+
+                • When you make any saving throw, you can add your Constitution modifier to the result.
+
+                • Your hit point maximum increases by 15 hit points.
+              title: Kindred Form (Bear)
+            - type: damage
+              damage: -15 [health growth]
+              overheal: false
+              fixedValue: true
+      onFalse: []
+      errorBehaviour: neither
+    - type: condition
+      condition: choice and choice in "wolf"
+      onTrue:
+        - type: target
+          target: self
+          effects:
+            - type: ieffect2
+              name: Kindred Form (Wolf)
+              duration: Dur
+              effects:
+                ac_value: 10+constitutionMod+dexterityMod
+              attacks:
+                - attack:
+                    name: Wolf Claw
+                    automation:
+                      - type: target
+                        target: all
+                        effects:
+                          - type: attack
+                            hit:
+                              - type: damage
+                                damage: 1d6+{strengthMod} [slashing]
+                                overheal: false
+                            miss: []
+                            attackBonus: strengthMod+proficiencyBonus
+                      - type: text
+                        text: You roll a d6 in place of the normal damage for your unarmed strikes.
+                          Attacks using your claws deal slashing damage instead
+                          of bludgeoning damage.
+                        title: Effect
+                    _v: 2
+                  defaultDC: null
+                  defaultAttackBonus: null
+                  defaultCastingMod: null
+                - attack:
+                    name: Wolf Bite
+                    automation:
+                      - type: target
+                        target: all
+                        effects:
+                          - type: attack
+                            hit:
+                              - type: damage
+                                damage: 1d8+{strengthMod} [piercing]
+                                overheal: false
+                            miss: []
+                            attackBonus: strengthMod+proficiencyBonus
+                      - type: text
+                        text: When making the attack action you may substitute one attack to make an
+                          unarmed bite attack. If the attack hits, you deal
+                          piercing damage equal to 1d8 + your Strength modifier.
+                          If you make a bite attack, you cannot make another
+                          until the beginning of your next turn.
+                        title: Effect
+                    _v: 2
+                  defaultDC: null
+                  defaultAttackBonus: null
+                  defaultCastingMod: null
+              buttons:
+                - label: End Kindred Form
+                  automation: []
+                  verb: ends their Kindred Form
+                  style: "4"
+                  defaultDC: null
+                  defaultAttackBonus: null
+                  defaultCastingMod: null
+              end: false
+              conc: false
+              desc: >-
+                When making an attack against a creature, if an ally is within 5 feet of
+                that creature and not incapacitated, you have advantage on that
+                attack roll.
+                 - Your speed increases by 20 feet, to a maximum of 60.
+              stacking: false
+              save_as: hybrid
+              parent: null
+              target_self: false
+              tick_on_caster: false
+            - type: text
+              text: >-
+                Your kindred form takes the shape of a ferocious dire wolf. While in your
+                kindred form, you gain the additional features:
+
+                • You can speak to and understand other wolves.
+
+                • When making an attack against a creature, if an ally is within 5 feet of that creature and not incapacitated, you have advantage on that attack roll.
+
+                • Your speed increases by 20 feet, to a maximum of 60.
+              title: Kindred Form (Wolf)
+      onFalse: []
+      errorBehaviour: neither
+    - type: condition
+      condition: choice
+      onTrue: []
+      onFalse:
+        - type: text
+          text: >-
+            You gain the ability to transform into the animal form representative of
+            your Lycanthropy type, known as your Kindred Form. You follow the
+            same rules as the Hybrid Transformation feature and any feature that
+            specifies the hybrid transformation, unless specified otherwise. You
+            can only transform into the kindred form representative of your
+            Lycanthropy. Each Kindred Form gains the following rules:
+
+            • You cannot speak.
+
+            • You cannot take any actions requiring hands, except your Transformation capabilities.
+
+            • You can only use unarmed claw and bite attacks.
+
+            • You automatically succeed at all saving throws relating to the Lust for the Hunt flaw. Other than being larger, you are indistinguishable from a regular animal of your Kindred Form.
+
+
+            Use `-choice bear` or `-choice wolf` to select your form that you take on.
+          title: Kindred Form
+      errorBehaviour: "false"
+  _v: 2
+  verb: takes on
+  activation_type: 1
