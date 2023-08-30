@@ -1,0 +1,143 @@
+- name: Defiled Ground
+  automation:
+    - type: target
+      target: self
+      effects:
+        - type: ieffect2
+          name: Defiler
+          duration: "10"
+          effects: null
+          attacks:
+            - attack:
+                name: Shift Defiled Ground
+                automation:
+                  - type: target
+                    target: each
+                    effects:
+                      - type: ieffect2
+                        name: Defiled Ground
+                        duration: null
+                        effects: null
+                        attacks: []
+                        buttons:
+                          - label: Leave Defiled Ground
+                            automation:
+                              - type: remove_ieffect
+                            verb: leaves the range of the Defiled Ground
+                            style: "4"
+                            defaultDC: null
+                            defaultAttackBonus: null
+                            defaultCastingMod: null
+                        end: false
+                        conc: false
+                        desc: >-
+                          The corrupted area is difficult terrain for creatures that are hostile to
+                          {{caster.name}}.
+                           - Additionally, when a creature in the area takes damage from an attack or spell for the first time on a turn, it takes an extra 1d4 necrotic damage.
+                        stacking: false
+                        save_as: null
+                        parent: ieffect
+                        target_self: false
+                        tick_on_caster: false
+                _v: 2
+                proper: true
+                verb: begins to
+              defaultDC: null
+              defaultAttackBonus: null
+              defaultCastingMod: null
+            - attack:
+                name: Defiled Touch
+                automation:
+                  - type: target
+                    target: all
+                    effects:
+                      - type: damage
+                        damage: 1d4[necrotic]
+                        overheal: false
+                _v: 2
+                activation_type: 2
+              defaultDC: null
+              defaultAttackBonus: null
+              defaultCastingMod: null
+          buttons: []
+          end: false
+          conc: false
+          desc: >-
+            The corrupted area is difficult terrain for creatures that are hostile to
+            you.
+             - Additionally, when a creature in the area takes damage from an attack or spell for the first time on a turn, it takes an extra 1d4 necrotic damage.
+             - You can move this patch of corruption up to 30 feet as a bonus action.
+          stacking: false
+          save_as: aura
+          parent: null
+          target_self: false
+          tick_on_caster: false
+    - type: target
+      target: each
+      effects:
+        - type: ieffect2
+          name: Defiled Ground
+          duration: null
+          effects: null
+          attacks: []
+          buttons:
+            - label: Leave Defiled Ground
+              automation:
+                - type: remove_ieffect
+              verb: leaves the range of the Defiled Ground
+              style: "4"
+              defaultDC: null
+              defaultAttackBonus: null
+              defaultCastingMod: null
+          end: false
+          conc: false
+          desc: >-
+            The corrupted area is difficult terrain for creatures that are hostile to
+            {{caster.name}}.
+             - Additionally, when a creature in the area takes damage from an attack or spell for the first time on a turn, it takes an extra 1d4 necrotic damage.
+          stacking: false
+          save_as: null
+          parent: aura
+          target_self: false
+          tick_on_caster: false
+    - type: text
+      text: You can use a bonus action to corrupt a patch of land or an area of water
+        in a 10-foot radius centered on a point within 60 feet of you. This
+        corruption lasts for 1 minute. The corrupted area is difficult terrain
+        for creatures that are hostile to you. Additionally, when a creature in
+        the area takes damage from an attack or spell for the first time on a
+        turn, it takes an extra 1d4 necrotic damage. You can move this patch of
+        corruption up to 30 feet as a bonus action. Flying creatures are
+        unaffected by the corruption.
+      title: Effect
+  _v: 2
+  activation_type: 3
+- name: Blighted Shape
+  automation:
+    - type: target
+      target: all
+      effects:
+        - type: ieffect2
+          name: Blighted Shape
+          duration: null
+          effects:
+            ac_bonus: "2"
+          attacks: []
+          buttons: []
+          end: false
+          conc: false
+          desc: Your beast form gains darkvision with a radius of 60 feet, or an
+            additional 60 feet of darkvision if it already has that sense.
+          stacking: false
+          save_as: null
+          parent: null
+          target_self: false
+          tick_on_caster: false
+    - type: text
+      text: While you are transformed by your Wild Shape feature, you gain a +2 bonus
+        to AC as gnarled spines protrude from your body. Your beast form also
+        gains darkvision with a radius of 60 feet, or an additional 60 feet of
+        darkvision if it already has that sense.
+      title: Effect
+  _v: 2
+  activation_type: 2
