@@ -95,7 +95,7 @@
                             same creature."
                           title: Effect
                       success: []
-                      dc: "10"
+                      dc: 10 + proficiencyBonus
                     - type: text
                       text: The savage nature of your curse sometimes causes you to lose control.
                         These ferocious tendencies are a constant struggle
